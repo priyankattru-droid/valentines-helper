@@ -166,7 +166,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
   };
 
   return (
-    <main className="min-h-screen px-6 py-12 bg-rose-50">
+    <main className="min-h-screen px-4 py-8 bg-rose-50">
       <div className="max-w-3xl mx-auto space-y-8 px-4">
         
         {/* STEP 1: Style Selection */}
