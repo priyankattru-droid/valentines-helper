@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Satisfy, Dancing_Script, Roboto_Mono, Inter } from "next/font/google";
 import "./globals.css";
-<head>
-<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
-</head>
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +11,29 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+const satisfy = Satisfy({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-satisfy",
+});
+
+const dancingScript = Dancing_Script({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-dancing",
+});
+
+const robotoMono = Roboto_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+});
+
+const inter = Inter({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -35,11 +52,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${satisfy.variable} ${dancingScript.variable} ${robotoMono.variable} ${inter.variable} antialiased`}>
+  {children}
+</body>
     </html>
   );
 }

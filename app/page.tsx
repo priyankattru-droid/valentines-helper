@@ -22,7 +22,7 @@ export default function Home() {
               <h1 
                 className="text-center text-6xl md:text-8xl lg:text-[96px] leading-none"
                 style={{ 
-                  fontFamily: 'Satisfy, cursive',
+                  fontFamily: 'var(--font-satisfy)',
                   color: '#EA3263'
                 }}
               >
@@ -33,7 +33,7 @@ export default function Home() {
               <h2 
                 className="text-center text-5xl md:text-6xl lg:text-[72px] leading-none"
                 style={{ 
-                  fontFamily: 'Dancing Script, cursive',
+                  fontFamily: 'var(--font-dancing)',
                   color: '#8B1938',
                   letterSpacing: '0.123047px'
                 }}
@@ -46,12 +46,15 @@ export default function Home() {
             <p 
   className="text-center px-8 md:px-16 text-lg md:text-xl lg:text-2xl leading-relaxed max-w-2xl"
   style={{ 
-    fontFamily: 'Roboto Mono, monospace',
+    fontFamily: 'var(--font-roboto-mono)',
     color: '#8B1938',
     letterSpacing: '0.0703125px'
   }}
 >
-  Valentine's day ideas for anyone and everyone! Thoughtful suggestions tailored for you, Express your feelings with heartfelt words & Make it special without the stress.
+Here are cleaner, simpler versions:
+
+Option 1 (very clear):
+Valentines Day ideas for everyone. Thoughtful, personalized, and stress-free.
 </p>
           </div>
         </div>
@@ -62,7 +65,7 @@ export default function Home() {
             className="flex items-center justify-center gap-3 px-10 py-5 rounded-full shadow-2xl hover:opacity-90 transition-opacity"
             style={{ 
               backgroundColor: '#EA3263',
-              fontFamily: 'Inter, sans-serif',
+              fontFamily: 'var(--font-inter)',
               fontWeight: 600,
               fontSize: '18px',
               color: '#FFFFFF',
