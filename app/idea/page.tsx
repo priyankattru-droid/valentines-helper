@@ -152,8 +152,8 @@ export default function IdeaPage() {
 
   return (
     <>
-      <main className="min-h-screen px-6 py-12 bg-rose-50">
-        <div className="max-w-2xl mx-auto space-y-8">
+      <main className="min-h-screen px-4 pt-16 pb-8 bg-rose-50">
+        <div className="max-w-2xl mx-auto space-y-6 md:space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-serif text-rose-900">
               Let's find something thoughtful
@@ -163,7 +163,7 @@ export default function IdeaPage() {
             </p>
           </div>
 
-          <div className="space-y-6 bg-white p-8 rounded-2xl shadow-sm">
+          <div className="space-y-6 bg-white p-6 md:p-8 rounded-2xl shadow-sm">
             {/* Question 1 */}
             <div className="space-y-3">
               <label className="block text-lg font-medium text-rose-900">
