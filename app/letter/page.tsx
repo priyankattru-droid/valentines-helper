@@ -5,7 +5,13 @@ import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import html2canvas from "html2canvas";
 import { letterTemplates, type RecipientType, type LetterStyle } from "./templates";
-import localFont from 'next/font/local';
+import { Dancing_Script } from "next/font/google";
+
+// Initialize Dancing Script font
+const dancingScript = Dancing_Script({ 
+  subsets: ['latin'],
+  weight: ['400', '700']
+});
 
 function LetterPageWrapper() {
   const searchParams = useSearchParams();
@@ -71,11 +77,11 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
 
       // Create div to replace textarea
       const textDiv = document.createElement('div');
+      textDiv.className = dancingScript.className;
       textDiv.style.cssText = `
         color: #252525;
         font-size: 40px;
         line-height: 1.5;
-        font-family: 'Caveat', cursive;
         white-space: pre-wrap;
         word-break: break-word;
         width: 100%;
@@ -109,13 +115,6 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
         backgroundColor: "#FFFDF8",
         logging: false,
         useCORS: true,
-        onclone: (clonedDoc) => {
-          // Ensure font loads in cloned document
-          const clonedDiv = clonedDoc.querySelector('div[style*="Caveat"]') as HTMLElement;
-          if (clonedDiv) {
-            clonedDiv.style.fontFamily = "'Caveat', cursive";
-          }
-        }
       });
 
       // Cleanup
@@ -285,13 +284,12 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
     target.style.height = Math.max(target.scrollHeight, 400) + 'px';
   }}
   placeholder="Start writing your letter here..."
-  className="w-full resize-none focus:outline-none bg-transparent relative z-10 overflow-hidden"
+  className={`w-full resize-none focus:outline-none bg-transparent relative z-10 overflow-hidden ${dancingScript.className}`}
 style={{ 
   color: '#252525', 
   fontSize: '24px', 
   lineHeight: '150%',
-  minHeight: '400px',
-  fontFamily: "'Caveat', cursive"
+  minHeight: '400px'
 }}
 />
 </div>
