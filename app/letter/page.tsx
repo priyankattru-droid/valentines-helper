@@ -7,9 +7,17 @@ import html2canvas from "html2canvas";
 import { letterTemplates, type RecipientType, type LetterStyle } from "./templates";
 import localFont from 'next/font/local';
 
-function LetterPageContent() {
+function LetterPageWrapper() {
   const searchParams = useSearchParams();
-  const recipientFromUrl = searchParams.get("recipient") as RecipientType | null;
+  const recipientFromUrl =
+    searchParams.get("recipient") as RecipientType | null;
+
+  return <LetterPageContent recipientFromUrl={recipientFromUrl} />;
+}
+
+
+function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientType | null }) {
+
   const [recipient, setRecipient] = useState<RecipientType>(recipientFromUrl || "romantic_partner");
   const [selectedStyle, setSelectedStyle] = useState<LetterStyle | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState(letterTemplates[0]);
@@ -368,7 +376,8 @@ style={{
 export default function LetterPage() {
   return (
     <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-      <LetterPageContent />
+      <LetterPageWrapper />
+
     </Suspense>
   );
 }
