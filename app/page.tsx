@@ -20,7 +20,7 @@ export default function Home() {
             <div className="flex flex-col items-center gap-4 w-full">
               {/* Main Heading */}
               <h1 
-                className="text-center text-6xl md:text-8xl lg:text-[96px] leading-none"
+                className="text-center text-4xl md:text-8xl lg:text-[72px] leading-none"
                 style={{ 
                   fontFamily: 'var(--font-satisfy)',
                   color: '#EA3263'
@@ -31,7 +31,7 @@ export default function Home() {
 
               {/* Subheading */}
               <h2 
-                className="text-center text-5xl md:text-6xl lg:text-[72px] leading-none"
+                className="text-center text-3xl md:text-6xl lg:text-[60px] leading-none"
                 style={{ 
                   fontFamily: 'var(--font-dancing)',
                   color: '#8B1938',
@@ -72,7 +72,7 @@ Valentines Day ideas for everyone. Thoughtful, personalized, and stress-free.
               letterSpacing: '-0.439453px'
             }}
           >
-            <span>Help me plan Valentine's Day</span>
+            <span>Show me the plan</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
