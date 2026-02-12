@@ -1,12 +1,11 @@
 "use client";
-
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import html2canvas from "html2canvas";
 import { letterTemplates, type RecipientType, type LetterStyle } from "./templates";
 import localFont from 'next/font/local';
 
-export default function LetterPage() {
+function LetterPageContent() {
   const searchParams = useSearchParams();
   const recipientFromUrl = searchParams.get("recipient") as RecipientType | null;
   const [recipient, setRecipient] = useState<RecipientType>(recipientFromUrl || "romantic_partner");
@@ -362,5 +361,12 @@ style={{
         )}
       </div>
     </main>
+  );
+}
+export default function LetterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <LetterPageContent />
+    </Suspense>
   );
 }
