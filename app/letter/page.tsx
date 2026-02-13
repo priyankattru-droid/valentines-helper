@@ -189,7 +189,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
               </h1>
               <p
                 style={{
-                  fontFamily: 'var(--font-roboto-mono)',
+                  fontFamily: 'var(--font-source-serif)',
                   fontSize: '16px',
                   lineHeight: '28px',
                   color: '#8B0836',
@@ -221,7 +221,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
                     >
                       <h3
                         style={{
-                          fontFamily: 'var(--font-roboto-mono)',
+                          fontFamily: 'var(--font-source-serif)',
                           fontWeight: 700,
                           fontSize: '20px',
                           lineHeight: '28px',
@@ -233,7 +233,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         <p
                           style={{
-                            fontFamily: 'var(--font-roboto-mono)',
+                            fontFamily: 'var(--font-source-serif)',
                             fontStyle: 'italic',
                             fontWeight: 500,
                             fontSize: '14px',
@@ -299,7 +299,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
                   <p
                     className="text-sm mt-1"
                     style={{
-                      fontFamily: 'var(--font-roboto-mono)',
+                      fontFamily: 'var(--font-source-serif)',
                       color: '#8B0836'
                     }}
                   >
@@ -322,7 +322,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
                   }}
                   className="text-sm hover:opacity-70 transition-opacity"
                   style={{
-                    fontFamily: 'var(--font-roboto-mono)',
+                    fontFamily: 'var(--font-source-serif)',
                     color: '#C70036',
                     textDecoration: 'underline'
                   }}
@@ -332,7 +332,7 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
               </div>
               <p
                 style={{
-                  fontFamily: 'var(--font-roboto-mono)',
+                  fontFamily: 'var(--font-source-serif)',
                   fontSize: '16px',
                   color: '#8B0836',
                   letterSpacing: '-0.4395px'
@@ -455,9 +455,14 @@ style={{
                   Copy Image
                 </button>
 
+                {/* Primary CTA - Updated to #DB4E74 */}
                 <button
                   onClick={downloadAsImage}
-                  className="px-6 py-3 rounded-full bg-rose-500 hover:bg-rose-600 text-white transition-colors"
+                  className="px-6 py-3 rounded-full text-white transition-opacity hover:opacity-90"
+                  style={{
+                    backgroundColor: '#DB4E74',
+                    fontFamily: 'var(--font-inter)'
+                  }}
                 >
                   Download Image
                 </button>

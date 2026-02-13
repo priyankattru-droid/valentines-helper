@@ -46,7 +46,7 @@ export default function Home() {
             <p 
   className="text-center px-8 md:px-16 text-lg md:text-xl lg:text-2xl leading-relaxed max-w-2xl"
   style={{ 
-    fontFamily: 'var(--font-roboto-mono)',
+    fontFamily: 'var(--font-source-serif)',
     color: '#8B1938',
     letterSpacing: '0.0703125px'
   }}
@@ -56,12 +56,12 @@ Valentines Day ideas for everyone. Thoughtful, personalized, and stress-free.
           </div>
         </div>
 
-        {/* CTA Button */}
+        {/* CTA Button - Updated to #DB4E74 */}
         <Link href="/idea">
-          <button 
+          <button
             className="flex items-center justify-center gap-3 px-10 py-5 rounded-full shadow-2xl hover:opacity-90 transition-opacity"
-            style={{ 
-              backgroundColor: '#EA3263',
+            style={{
+              backgroundColor: '#DB4E74',
               fontFamily: 'var(--font-inter)',
               fontWeight: 600,
               fontSize: '18px',

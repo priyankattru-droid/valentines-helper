@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function IdeaPage() {
@@ -11,7 +11,7 @@ export default function IdeaPage() {
     vibe: "",
   });
   const [idea, setIdea] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [showReveal, setShowReveal] = useState(false);
 
   const generateIdea = () => {
     let generatedIdea = "";
@@ -146,308 +146,404 @@ export default function IdeaPage() {
     }
   
     setIdea(generatedIdea);
-    setShowModal(true);
+    setShowReveal(true);
   };
+
+  const handleShowAnother = () => {
+    setShowReveal(false);
+    setIdea("");
+    // Keep the answers so they can quickly generate another idea
+  };
+
   const isComplete = answers.who && answers.time && answers.budget && answers.vibe;
 
+  // Show reveal page if idea is generated
+  if (showReveal && idea) {
+    return (
+      <IdeaRevealPage 
+        idea={idea}
+        recipient={answers.who}
+        onShowAnother={handleShowAnother}
+      />
+    );
+  }
+
   return (
-    <>
-      <main
-        className="min-h-screen px-4 pt-12 pb-8"
-        style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
-      >
-        <div className="max-w-2xl mx-auto space-y-8">
-          <div className="text-center space-y-4 px-4">
-            <h1
-              className="text-4xl md:text-5xl leading-tight"
-              style={{
-                fontFamily: 'var(--font-satisfy)',
-                color: '#EA3263',
-                letterSpacing: '0.3516px'
-              }}
-            >
-              Let's find something thoughtful
-            </h1>
-            <p
-              className="text-base"
-              style={{
-                fontFamily: 'var(--font-roboto-mono)',
-                color: '#8B0836',
-                letterSpacing: '-0.4395px'
-              }}
-            >
-              Answer a few questions, and I'll suggest something
-            </p>
-          </div>
-
-          <div
-            className="space-y-10 p-8 md:p-10 rounded-3xl"
+    <main
+      className="min-h-screen px-4 pt-12 pb-8"
+      style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+    >
+      <div className="max-w-2xl mx-auto space-y-8">
+        <div className="text-center space-y-4 px-4">
+          <h1
+            className="text-4xl md:text-5xl leading-tight"
             style={{
-              background: 'rgba(255, 255, 255, 0.8)',
-              boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
+              fontFamily: 'var(--font-satisfy)',
+              color: '#EA3263',
+              letterSpacing: '0.3516px'
             }}
           >
-            {/* Question 1 */}
-            <div className="space-y-4">
-              <label
-                className="block text-lg font-bold"
-                style={{
-                  fontFamily: 'var(--font-roboto-mono)',
-                  color: '#8B0836',
-                  letterSpacing: '-0.439453px'
-                }}
-              >
-                Who is this for?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {["Romantic partner", "Best friend", "Myself", "Long distance"].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setAnswers({ ...answers, who: option })}
-                    className={`p-4 border-2 transition-all ${
-                      answers.who === option
-                        ? "bg-rose-50"
-                        : "bg-white hover:bg-rose-25"
-                    }`}
-                    style={{
-                      borderColor: answers.who === option ? '#EA3263' : '#FFCCD3',
-                      borderRadius: '14px',
-                      fontFamily: 'var(--font-roboto-mono)',
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      color: '#C70036',
-                      letterSpacing: '-0.150391px'
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Question 2 */}
-            <div className="space-y-4">
-              <label
-                className="block text-lg font-bold"
-                style={{
-                  fontFamily: 'var(--font-roboto-mono)',
-                  color: '#8B0836',
-                  letterSpacing: '-0.439453px'
-                }}
-              >
-                How much time do you have?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {["15 minutes", "An evening", "Full day"].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setAnswers({ ...answers, time: option })}
-                    className={`p-4 border-2 transition-all ${
-                      answers.time === option
-                        ? "bg-rose-50"
-                        : "bg-white hover:bg-rose-25"
-                    }`}
-                    style={{
-                      borderColor: answers.time === option ? '#EA3263' : '#FFCCD3',
-                      borderRadius: '14px',
-                      fontFamily: 'var(--font-roboto-mono)',
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      color: '#C70036',
-                      letterSpacing: '-0.150391px'
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Question 3 */}
-            <div className="space-y-4">
-              <label
-                className="block text-lg font-bold"
-                style={{
-                  fontFamily: 'var(--font-roboto-mono)',
-                  color: '#8B0836',
-                  letterSpacing: '-0.439453px'
-                }}
-              >
-                What's your budget?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {["Free", "Under ₹1000", "Splurge"].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setAnswers({ ...answers, budget: option })}
-                    className={`p-4 border-2 transition-all ${
-                      answers.budget === option
-                        ? "bg-rose-50"
-                        : "bg-white hover:bg-rose-25"
-                    }`}
-                    style={{
-                      borderColor: answers.budget === option ? '#EA3263' : '#FFCCD3',
-                      borderRadius: '14px',
-                      fontFamily: 'var(--font-roboto-mono)',
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      color: '#C70036',
-                      letterSpacing: '-0.150391px'
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Question 4 */}
-            <div className="space-y-4">
-              <label
-                className="block text-lg font-bold"
-                style={{
-                  fontFamily: 'var(--font-roboto-mono)',
-                  color: '#8B0836',
-                  letterSpacing: '-0.439453px'
-                }}
-              >
-                What vibe are you going for?
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {["Romantic", "Playful", "Thoughtful", "Relaxed"].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setAnswers({ ...answers, vibe: option })}
-                    className={`p-4 border-2 transition-all ${
-                      answers.vibe === option
-                        ? "bg-rose-50"
-                        : "bg-white hover:bg-rose-25"
-                    }`}
-                    style={{
-                      borderColor: answers.vibe === option ? '#EA3263' : '#FFCCD3',
-                      borderRadius: '14px',
-                      fontFamily: 'var(--font-roboto-mono)',
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      color: '#C70036',
-                      letterSpacing: '-0.150391px'
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Generate Button */}
-            <button
-              onClick={generateIdea}
-              disabled={!isComplete}
-              className="w-full transition-all"
-              style={{
-                padding: '17px 0',
-                borderRadius: '9999px',
-                backgroundColor: isComplete ? '#EA3263' : '#E5E7EB',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '18px',
-                fontWeight: 600,
-                color: isComplete ? '#FFFFFF' : '#99A1AF',
-                letterSpacing: '-0.439453px',
-                cursor: isComplete ? 'pointer' : 'not-allowed'
-              }}
-            >
-              {isComplete ? "Show me an idea ✨" : "Answer all questions first"}
-            </button>
-          </div>
+            Let's find something thoughtful
+          </h1>
+          <p
+            className="text-base"
+            style={{
+              fontFamily: 'var(--font-source-serif)',
+              color: '#8B0836',
+              letterSpacing: '-0.4395px'
+            }}
+          >
+            Answer a few questions, and I'll suggest something
+          </p>
         </div>
-      </main>
 
-      {/* Modal */}
-      {showModal && (
         <div
-          className="fixed inset-0 flex items-center justify-center p-6 z-50"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
-          onClick={() => setShowModal(false)}
+          className="space-y-10 p-8 md:p-10 rounded-3xl"
+          style={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
+          }}
         >
-          <div
-            className="relative animate-in fade-in zoom-in duration-300"
-            style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              borderRadius: '24px',
-              padding: '48px 40px',
-              maxWidth: '560px',
-              width: '100%',
-              boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 hover:opacity-70 transition-opacity"
+          {/* Question 1 */}
+          <div className="space-y-4">
+            <label
+              className="block text-lg font-normal"
               style={{
-                fontSize: '28px',
+                fontFamily: 'var(--font-source-serif)',
                 color: '#8B0836',
-                fontWeight: 300
-              }}
-            >
-              ×
-            </button>
-
-            {/* Heart icon or emoji */}
-            <div className="text-center text-6xl mb-6">💝</div>
-
-            <h2
-              className="text-center mb-6"
-              style={{
-                fontFamily: 'var(--font-satisfy)',
-                fontSize: '32px',
-                color: '#EA3263',
-                letterSpacing: '0.3516px'
-              }}
-            >
-              Your Valentine's idea
-            </h2>
-
-            <p
-              className="text-center mb-8 leading-relaxed"
-              style={{
-                fontFamily: 'var(--font-roboto-mono)',
-                fontSize: '16px',
-                color: '#8B0836',
-                letterSpacing: '-0.4395px'
-              }}
-            >
-              {idea}
-            </p>
-
-            <Link
-              href={`/letter?recipient=${
-                answers.who === "Myself"
-                  ? "myself"
-                  : answers.who === "Long distance"
-                  ? "long_distance"
-                  : answers.who === "Best friend"
-                  ? "best_friend"
-                  : "romantic_partner"
-              }`}
-              className="block text-center transition-opacity hover:opacity-90"
-              style={{
-                padding: '17px 0',
-                borderRadius: '9999px',
-                backgroundColor: '#EA3263',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#FFFFFF',
                 letterSpacing: '-0.439453px'
               }}
             >
-              {answers.who === "Myself" ? "Write a letter to yourself →" : "Write a letter to them →"}
-            </Link>
+              Who is this for?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {["Romantic partner", "Best friend", "Myself", "Long distance"].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setAnswers({ ...answers, who: option })}
+                  className={`p-4 border-2 transition-all ${
+                    answers.who === option
+                      ? "bg-rose-50"
+                      : "bg-white hover:bg-rose-25"
+                  }`}
+                  style={{
+                    borderColor: answers.who === option ? '#EA3263' : '#FFCCD3',
+                    borderRadius: '14px',
+                    fontFamily: 'var(--font-source-serif)',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    color: '#C70036',
+                    letterSpacing: '-0.150391px'
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Question 2 */}
+          <div className="space-y-4">
+            <label
+              className="block text-lg font-normal"
+              style={{
+                fontFamily: 'var(--font-source-serif)',
+                color: '#8B0836',
+                letterSpacing: '-0.439453px'
+              }}
+            >
+              How much time do you have?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {["15 minutes", "An evening", "Full day"].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setAnswers({ ...answers, time: option })}
+                  className={`p-4 border-2 transition-all ${
+                    answers.time === option
+                      ? "bg-rose-50"
+                      : "bg-white hover:bg-rose-25"
+                  }`}
+                  style={{
+                    borderColor: answers.time === option ? '#EA3263' : '#FFCCD3',
+                    borderRadius: '14px',
+                    fontFamily: 'var(--font-source-serif)',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    color: '#C70036',
+                    letterSpacing: '-0.150391px'
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Question 3 */}
+          <div className="space-y-4">
+            <label
+              className="block text-lg font-normal"
+              style={{
+                fontFamily: 'var(--font-source-serif)',
+                color: '#8B0836',
+                letterSpacing: '-0.439453px'
+              }}
+            >
+              What's your budget?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {["Free", "Under ₹1000", "Splurge"].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setAnswers({ ...answers, budget: option })}
+                  className={`p-4 border-2 transition-all ${
+                    answers.budget === option
+                      ? "bg-rose-50"
+                      : "bg-white hover:bg-rose-25"
+                  }`}
+                  style={{
+                    borderColor: answers.budget === option ? '#EA3263' : '#FFCCD3',
+                    borderRadius: '14px',
+                    fontFamily: 'var(--font-source-serif)',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    color: '#C70036',
+                    letterSpacing: '-0.150391px'
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Question 4 */}
+          <div className="space-y-4">
+            <label
+              className="block text-lg font-normal"
+              style={{
+                fontFamily: 'var(--font-source-serif)',
+                color: '#8B0836',
+                letterSpacing: '-0.439453px'
+              }}
+            >
+              What vibe are you going for?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {["Romantic", "Playful", "Thoughtful", "Relaxed"].map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setAnswers({ ...answers, vibe: option })}
+                  className={`p-4 border-2 transition-all ${
+                    answers.vibe === option
+                      ? "bg-rose-50"
+                      : "bg-white hover:bg-rose-25"
+                  }`}
+                  style={{
+                    borderColor: answers.vibe === option ? '#EA3263' : '#FFCCD3',
+                    borderRadius: '14px',
+                    fontFamily: 'var(--font-source-serif)',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    color: '#C70036',
+                    letterSpacing: '-0.150391px'
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Generate Button - Updated primary CTA to #DB4E74 */}
+          <button
+            onClick={generateIdea}
+            disabled={!isComplete}
+            className="w-full transition-all hover:opacity-90"
+            style={{
+              padding: '17px 0',
+              borderRadius: '9999px',
+              backgroundColor: isComplete ? '#DB4E74' : '#E5E7EB',
+              fontFamily: 'var(--font-inter)',
+              fontSize: '18px',
+              fontWeight: 600,
+              color: isComplete ? '#FFFFFF' : '#99A1AF',
+              letterSpacing: '-0.439453px',
+              cursor: isComplete ? 'pointer' : 'not-allowed'
+            }}
+          >
+            {isComplete ? "Show me an idea ✨" : "Answer all questions first"}
+          </button>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+// Idea Reveal Page Component (embedded in same file for simplicity)
+function IdeaRevealPage({ idea, recipient, onShowAnother }: { idea: string; recipient: string; onShowAnother: () => void }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsVisible(true), 100);
+  }, []);
+
+  const getRecipientParam = () => {
+    switch(recipient) {
+      case "Myself": return "myself";
+      case "Long distance": return "long_distance";
+      case "Best friend": return "best_friend";
+      default: return "romantic_partner";
+    }
+  };
+
+  const getLetterCTA = () => {
+    if (recipient === "Myself") return "Put it into words 💌✨";
+    return "Let’s write something sweet 💌✨";
+  };
+
+  // Updated Show Idea page to match new design specifications
+  // Changes: container padding, emoji sizes, typography, spacing, CTA colors
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 flex items-center justify-center px-4 py-8 md:py-36">
+      {/* Animated Container */}
+      <div
+        className={`max-w-2xl w-full transition-all duration-1000 ease-out ${
+          isVisible
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-95 translate-y-8"
+        }`}
+      >
+        {/* Main Content Card - Updated padding and spacing */}
+        <div
+          className="bg-white space-y-10 transition-all duration-700 delay-500"
+          style={{
+            padding: '32px',
+            boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)',
+            borderRadius: '24px'
+          }}
+        >
+          {/* Top Section - Emoji and Title */}
+          <div className="space-y-5">
+            {/* Heart Icon - Updated size to 56px */}
+            <div className="flex justify-center">
+              <div
+                className={`transition-all duration-700 delay-300 ${
+                  isVisible ? "opacity-100 rotate-0 scale-100" : "opacity-0 rotate-45 scale-0"
+                }`}
+                style={{ fontSize: '56px', lineHeight: '72px' }}
+              >
+                💝
+              </div>
+            </div>
+
+            {/* Title and Idea Text */}
+            <div className="space-y-4">
+              {/* Title - Updated to Satisfy 44px */}
+              <h1
+                className={`text-center transition-all duration-700 delay-500 ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+                style={{
+                  fontFamily: 'var(--font-satisfy)',
+                  fontSize: '44px',
+                  lineHeight: '40px',
+                  color: '#EA3263'
+                }}
+              >
+                Your Valentine's idea
+              </h1>
+
+              {/* The Idea - Updated to Source Serif 4, italic, 22px */}
+              <p
+                className={`text-center transition-all duration-700 delay-700 ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+                style={{
+                  fontFamily: 'var(--font-source-serif)',
+                  fontStyle: 'italic',
+                  fontWeight: 400,
+                  fontSize: '22px',
+                  lineHeight: '40px',
+                  color: '#252525'
+                }}
+              >
+                {idea}
+              </p>
+            </div>
+          </div>
+
+          {/* Small Emojis Divider - Updated to 24px */}
+          <div
+            className={`flex justify-center gap-4 transition-all duration-700 delay-900 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ fontSize: '24px', lineHeight: '32px' }}
+          >
+            💌 💖 💌
+          </div>
+
+          {/* Bottom Section - Text and CTAs */}
+          <div className="space-y-10">
+            {/* Cherry on Top Text - Updated typography */}
+            <p
+              className={`text-center transition-all duration-700 delay-1000 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{
+                fontFamily: 'var(--font-source-serif)',
+                fontStyle: 'italic',
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: '26px',
+                color: '#252525'
+              }}
+            >
+              Add a handwritten note to make it unforgettable. 🍒
+            </p>
+
+            {/* CTAs - Updated colors and sizing */}
+            <div
+              className={`space-y-4 transition-all duration-700 delay-1100 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              {/* Primary CTA - Updated to #DB4E74 and Inter 15px */}
+              <Link
+                href={`/letter?recipient=${getRecipientParam()}`}
+                className="block w-full text-center rounded-full transition-all duration-200 active:scale-95 touch-manipulation hover:opacity-90"
+                style={{
+                  padding: '16px',
+                  backgroundColor: '#DB4E74',
+                  fontFamily: 'var(--font-inter)',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  lineHeight: '28px',
+                  color: '#FFFFFF'
+                }}
+              >
+                {getLetterCTA()}
+              </Link>
+
+              {/* Secondary CTA - Updated to underlined text style */}
+              <button
+                onClick={onShowAnother}
+                className="w-full text-center underline transition-all duration-200 hover:opacity-70"
+                style={{
+                  fontFamily: 'var(--font-inter)',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  lineHeight: '28px',
+                  color: '#EA3263'
+                }}
+              >
+                Show me another idea ✨
+              </button>
+            </div>
           </div>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
