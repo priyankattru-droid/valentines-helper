@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function IdeaPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [answers, setAnswers] = useState({
     who: "",
     time: "",
@@ -12,6 +16,16 @@ export default function IdeaPage() {
   });
   const [idea, setIdea] = useState("");
   const [showReveal, setShowReveal] = useState(false);
+
+  // Sync showReveal state with URL parameter
+  useEffect(() => {
+    const step = searchParams.get('step');
+    if (step === 'reveal' && idea) {
+      setShowReveal(true);
+    } else if (step !== 'reveal' && showReveal) {
+      setShowReveal(false);
+    }
+  }, [searchParams, idea, showReveal]);
 
   const generateIdea = () => {
     let generatedIdea = "";
@@ -147,12 +161,15 @@ export default function IdeaPage() {
   
     setIdea(generatedIdea);
     setShowReveal(true);
+    // Push new history entry for proper back navigation
+    router.push('/idea?step=reveal', { scroll: false });
   };
 
   const handleShowAnother = () => {
     setShowReveal(false);
     setIdea("");
-    // Keep the answers so they can quickly generate another idea
+    // Navigate back to remove reveal from history
+    router.push('/idea', { scroll: false });
   };
 
   const isComplete = answers.who && answers.time && answers.budget && answers.vibe;
@@ -386,6 +403,9 @@ function IdeaRevealPage({ idea, recipient, onShowAnother }: { idea: string; reci
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Scroll to top immediately on mount
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Then trigger animation
     setTimeout(() => setIsVisible(true), 100);
   }, []);
 
@@ -400,7 +420,7 @@ function IdeaRevealPage({ idea, recipient, onShowAnother }: { idea: string; reci
 
   const getLetterCTA = () => {
     if (recipient === "Myself") return "Put it into words 💌✨";
-    return "Let’s write something sweet 💌✨";
+    return "Write something sweet 💌✨";
   };
 
   // Updated Show Idea page to match new design specifications
