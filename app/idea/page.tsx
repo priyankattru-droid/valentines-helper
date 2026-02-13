@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function IdeaPage() {
+function IdeaPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -395,6 +395,22 @@ export default function IdeaPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+// Wrap in Suspense boundary for useSearchParams
+export default function IdeaPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center"
+           style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}>
+        <div className="text-center" style={{ fontFamily: 'var(--font-source-serif)', color: '#8B0836' }}>
+          Loading...
+        </div>
+      </div>
+    }>
+      <IdeaPageContent />
+    </Suspense>
   );
 }
 
