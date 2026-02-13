@@ -16,6 +16,7 @@ function IdeaPageContent() {
   });
   const [idea, setIdea] = useState("");
   const [showReveal, setShowReveal] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Sync showReveal state with URL parameter
   useEffect(() => {
@@ -28,9 +29,13 @@ function IdeaPageContent() {
   }, [searchParams, idea, showReveal]);
 
   const generateIdea = () => {
-    let generatedIdea = "";
-  
-    // LONG DISTANCE ideas
+    setIsGenerating(true);
+
+    // Small delay to show loading animation
+    setTimeout(() => {
+      let generatedIdea = "";
+
+      // LONG DISTANCE ideas
     if (answers.who === "Long distance") {
       if (answers.vibe === "Romantic") {
         if (answers.budget === "Free") {
@@ -159,10 +164,12 @@ function IdeaPageContent() {
       }
     }
   
-    setIdea(generatedIdea);
-    setShowReveal(true);
-    // Push new history entry for proper back navigation
-    router.push('/idea?step=reveal', { scroll: false });
+      setIdea(generatedIdea);
+      setShowReveal(true);
+      setIsGenerating(false);
+      // Push new history entry for proper back navigation
+      router.push('/idea?step=reveal', { scroll: false });
+    }, 800); // 800ms delay for loading animation
   };
 
   const handleShowAnother = () => {
@@ -186,10 +193,57 @@ function IdeaPageContent() {
   }
 
   return (
-    <main
-      className="min-h-screen px-4 pt-12 pb-8"
-      style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
-    >
+    <>
+      {/* Loading Overlay */}
+      {isGenerating && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(4px)'
+          }}
+        >
+          <div
+            className="flex flex-col items-center gap-4 p-8 rounded-2xl"
+            style={{
+              backgroundColor: '#FFFFFF',
+              boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
+            }}
+          >
+            <svg className="animate-spin" width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="#EA3263"
+                strokeWidth="3"
+                strokeOpacity="0.25"
+              />
+              <path
+                d="M12 2a10 10 0 0 1 10 10"
+                stroke="#EA3263"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+            <p
+              style={{
+                fontFamily: 'var(--font-source-serif)',
+                fontSize: '18px',
+                fontWeight: 500,
+                color: '#252525'
+              }}
+            >
+              Finding the perfect idea...
+            </p>
+          </div>
+        </div>
+      )}
+
+      <main
+        className="min-h-screen px-4 pt-12 pb-8"
+        style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+      >
       <div className="max-w-2xl mx-auto space-y-8">
         <div className="text-center space-y-4 px-4">
           <h1
@@ -376,25 +430,26 @@ function IdeaPageContent() {
           {/* Generate Button - Updated primary CTA to #DB4E74 */}
           <button
             onClick={generateIdea}
-            disabled={!isComplete}
+            disabled={!isComplete || isGenerating}
             className="w-full transition-all hover:opacity-90"
             style={{
               padding: '17px 0',
               borderRadius: '9999px',
-              backgroundColor: isComplete ? '#DB4E74' : '#E5E7EB',
+              backgroundColor: isComplete && !isGenerating ? '#DB4E74' : '#E5E7EB',
               fontFamily: 'var(--font-inter)',
               fontSize: '18px',
               fontWeight: 600,
-              color: isComplete ? '#FFFFFF' : '#99A1AF',
+              color: isComplete && !isGenerating ? '#FFFFFF' : '#99A1AF',
               letterSpacing: '-0.439453px',
-              cursor: isComplete ? 'pointer' : 'not-allowed'
+              cursor: isComplete && !isGenerating ? 'pointer' : 'not-allowed'
             }}
           >
-            {isComplete ? "Show me an idea ✨" : "Answer all questions first"}
+            {isGenerating ? "Generating..." : isComplete ? "Show me an idea ✨" : "Answer all questions first"}
           </button>
         </div>
       </div>
     </main>
+    </>
   );
 }
 
@@ -402,10 +457,37 @@ function IdeaPageContent() {
 export default function IdeaPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center"
-           style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}>
-        <div className="text-center" style={{ fontFamily: 'var(--font-source-serif)', color: '#8B0836' }}>
-          Loading...
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <svg className="animate-spin" width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="#EA3263"
+              strokeWidth="3"
+              strokeOpacity="0.25"
+            />
+            <path
+              d="M12 2a10 10 0 0 1 10 10"
+              stroke="#EA3263"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          </svg>
+          <p
+            style={{
+              fontFamily: 'var(--font-source-serif)',
+              fontSize: '18px',
+              fontWeight: 500,
+              color: '#252525'
+            }}
+          >
+            Loading...
+          </p>
         </div>
       </div>
     }>

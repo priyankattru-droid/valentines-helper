@@ -793,9 +793,42 @@ style={{
 }
 export default function LetterPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <svg className="animate-spin" width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="#EA3263"
+              strokeWidth="3"
+              strokeOpacity="0.25"
+            />
+            <path
+              d="M12 2a10 10 0 0 1 10 10"
+              stroke="#EA3263"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          </svg>
+          <p
+            style={{
+              fontFamily: 'var(--font-source-serif)',
+              fontSize: '18px',
+              fontWeight: 500,
+              color: '#252525'
+            }}
+          >
+            Loading...
+          </p>
+        </div>
+      </div>
+    }>
       <LetterPageWrapper />
-
     </Suspense>
   );
 }
