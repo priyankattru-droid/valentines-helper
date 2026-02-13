@@ -165,41 +165,114 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
   };
 
   return (
-    <main className="min-h-screen px-4 py-8 bg-rose-50">
-      <div className="max-w-3xl mx-auto space-y-8 px-4">
-        
+    <main
+      className="min-h-screen px-4 py-12"
+      style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+    >
+      <div className="max-w-3xl mx-auto space-y-8">
+
         {/* STEP 1: Style Selection */}
         {flowStep === "select_style" && (
           <>
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-serif text-rose-900">
+            <div className="text-center space-y-6 px-4">
+              <h1
+                className="text-4xl md:text-5xl"
+                style={{
+                  fontFamily: 'var(--font-satisfy)',
+                  fontSize: '48px',
+                  lineHeight: '120%',
+                  color: '#EA3263',
+                  letterSpacing: '0.3516px'
+                }}
+              >
                 Choose your letter style
               </h1>
-              <p className="text-rose-700">
+              <p
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  fontSize: '16px',
+                  lineHeight: '28px',
+                  color: '#8B0836',
+                  letterSpacing: '-0.4395px'
+                }}
+              >
                 Pick a starting point, or begin with a blank page
               </p>
             </div>
-  
-            <div className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div className="space-y-6 px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {letterTemplates
                   .filter(t => t.recipient === recipient)
                   .map((template) => (
                     <button
                       key={`${template.recipient}-${template.style}`}
                       onClick={() => loadTemplate(template.style)}
-                      className="p-6 rounded-xl border-2 text-left hover:border-rose-500 transition-all"
+                      className="text-left transition-all hover:scale-[1.02]"
+                      style={{
+                        padding: '24px',
+                        background: '#FFFFFF',
+                        boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px'
+                      }}
                     >
-                      <h3 className="font-medium text-rose-900 mb-2">{template.styleName}</h3>
-                      <p className="text-sm text-gray-600 mb-3">{template.opening}</p>
-                      <p className="text-xs text-gray-500 italic">{template.previewText}</p>
+                      <h3
+                        style={{
+                          fontFamily: 'var(--font-roboto-mono)',
+                          fontWeight: 700,
+                          fontSize: '20px',
+                          lineHeight: '28px',
+                          color: '#C70036'
+                        }}
+                      >
+                        {template.styleName}
+                      </h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <p
+                          style={{
+                            fontFamily: 'var(--font-roboto-mono)',
+                            fontStyle: 'italic',
+                            fontWeight: 500,
+                            fontSize: '14px',
+                            lineHeight: '20px',
+                            color: '#8B0836'
+                          }}
+                        >
+                          {template.opening}
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: 'var(--font-inter)',
+                            fontWeight: 500,
+                            fontSize: '12px',
+                            lineHeight: '23px',
+                            color: '#757575'
+                          }}
+                        >
+                          {template.previewText}
+                        </p>
+                      </div>
                     </button>
                   ))}
               </div>
-  
+
               <button
                 onClick={startBlankPage}
-                className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl hover:border-rose-500 text-gray-600 hover:text-rose-700 transition-all"
+                className="w-full transition-all hover:opacity-80"
+                style={{
+                  padding: '18px 0',
+                  border: '2px solid #EC003F',
+                  borderRadius: '9999px',
+                  fontFamily: 'var(--font-inter)',
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  textAlign: 'center',
+                  color: '#EC003F'
+                }}
               >
                 Start with a blank page
               </button>
@@ -210,13 +283,26 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
         {/* STEP 2: Writing */}
         {flowStep === "write_letter" && (
           <>
-            <div className="space-y-4">
+            <div className="space-y-4 px-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-3xl font-serif text-rose-900">
+                  <h1
+                    className="text-3xl md:text-4xl"
+                    style={{
+                      fontFamily: 'var(--font-satisfy)',
+                      color: '#EA3263',
+                      letterSpacing: '0.3516px'
+                    }}
+                  >
                     Write your letter
                   </h1>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p
+                    className="text-sm mt-1"
+                    style={{
+                      fontFamily: 'var(--font-roboto-mono)',
+                      color: '#8B0836'
+                    }}
+                  >
                     {selectedStyle ? selectedTemplate.styleName : "Blank page"}
                   </p>
                 </div>
@@ -234,12 +320,24 @@ function LetterPageContent({ recipientFromUrl }: { recipientFromUrl: RecipientTy
                       setFlowStep("select_style");
                     }
                   }}
-                  className="text-sm text-rose-600 hover:text-rose-700 underline"
+                  className="text-sm hover:opacity-70 transition-opacity"
+                  style={{
+                    fontFamily: 'var(--font-roboto-mono)',
+                    color: '#C70036',
+                    textDecoration: 'underline'
+                  }}
                 >
                   Change style
                 </button>
               </div>
-              <p className="text-rose-700">
+              <p
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  fontSize: '16px',
+                  color: '#8B0836',
+                  letterSpacing: '-0.4395px'
+                }}
+              >
                 You don't have to say everything. Just say something honest.
               </p>
             </div>

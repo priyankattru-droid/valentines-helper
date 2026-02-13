@@ -172,7 +172,7 @@ export default function IdeaPage() {
               className="text-base"
               style={{
                 fontFamily: 'var(--font-roboto-mono)',
-                color: '#C70036',
+                color: '#8B0836',
                 letterSpacing: '-0.4395px'
               }}
             >
