@@ -152,33 +152,72 @@ export default function IdeaPage() {
 
   return (
     <>
-      <main className="min-h-screen px-4 pt-16 pb-8 bg-rose-50">
-        <div className="max-w-2xl mx-auto space-y-6 md:space-y-8">
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-serif text-rose-900">
+      <main
+        className="min-h-screen px-4 pt-12 pb-8"
+        style={{ background: 'linear-gradient(135deg, #FDF2F8 0%, #FFF1F2 50%, #FEF2F2 100%)' }}
+      >
+        <div className="max-w-2xl mx-auto space-y-8">
+          <div className="text-center space-y-4 px-4">
+            <h1
+              className="text-4xl md:text-5xl leading-tight"
+              style={{
+                fontFamily: 'var(--font-satisfy)',
+                color: '#EA3263',
+                letterSpacing: '0.3516px'
+              }}
+            >
               Let's find something thoughtful
             </h1>
-            <p className="text-rose-700">
-              Answer a few questions, and I'll suggest something meaningful.
+            <p
+              className="text-base"
+              style={{
+                fontFamily: 'var(--font-roboto-mono)',
+                color: '#C70036',
+                letterSpacing: '-0.4395px'
+              }}
+            >
+              Answer a few questions, and I'll suggest something
             </p>
           </div>
 
-          <div className="space-y-6 bg-white p-6 md:p-8 rounded-2xl shadow-sm">
+          <div
+            className="space-y-10 p-8 md:p-10 rounded-3xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.8)',
+              boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
+            }}
+          >
             {/* Question 1 */}
-            <div className="space-y-3">
-              <label className="block text-lg font-medium text-rose-900">
+            <div className="space-y-4">
+              <label
+                className="block text-lg font-bold"
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  color: '#8B0836',
+                  letterSpacing: '-0.439453px'
+                }}
+              >
                 Who is this for?
               </label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 {["Romantic partner", "Best friend", "Myself", "Long distance"].map((option) => (
                   <button
                     key={option}
                     onClick={() => setAnswers({ ...answers, who: option })}
-                    className={`p-5 rounded-xl border-2 transition-all text-base ${
+                    className={`p-4 border-2 transition-all ${
                       answers.who === option
-                        ? "border-rose-500 bg-rose-50 text-rose-900"
-                        : "border-gray-200 hover:border-rose-300 text-gray-700"
+                        ? "bg-rose-50"
+                        : "bg-white hover:bg-rose-25"
                     }`}
+                    style={{
+                      borderColor: answers.who === option ? '#EA3263' : '#FFCCD3',
+                      borderRadius: '14px',
+                      fontFamily: 'var(--font-roboto-mono)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: '#C70036',
+                      letterSpacing: '-0.150391px'
+                    }}
                   >
                     {option}
                   </button>
@@ -187,20 +226,36 @@ export default function IdeaPage() {
             </div>
 
             {/* Question 2 */}
-            <div className="space-y-3">
-              <label className="block text-lg font-medium text-rose-900">
+            <div className="space-y-4">
+              <label
+                className="block text-lg font-bold"
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  color: '#8B0836',
+                  letterSpacing: '-0.439453px'
+                }}
+              >
                 How much time do you have?
               </label>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 {["15 minutes", "An evening", "Full day"].map((option) => (
                   <button
                     key={option}
                     onClick={() => setAnswers({ ...answers, time: option })}
-                    className={`p-5 rounded-xl border-2 transition-all text-base ${
+                    className={`p-4 border-2 transition-all ${
                       answers.time === option
-                        ? "border-rose-500 bg-rose-50 text-rose-900"
-                        : "border-gray-200 hover:border-rose-300 text-gray-700"
+                        ? "bg-rose-50"
+                        : "bg-white hover:bg-rose-25"
                     }`}
+                    style={{
+                      borderColor: answers.time === option ? '#EA3263' : '#FFCCD3',
+                      borderRadius: '14px',
+                      fontFamily: 'var(--font-roboto-mono)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: '#C70036',
+                      letterSpacing: '-0.150391px'
+                    }}
                   >
                     {option}
                   </button>
@@ -209,20 +264,36 @@ export default function IdeaPage() {
             </div>
 
             {/* Question 3 */}
-            <div className="space-y-3">
-              <label className="block text-lg font-medium text-rose-900">
+            <div className="space-y-4">
+              <label
+                className="block text-lg font-bold"
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  color: '#8B0836',
+                  letterSpacing: '-0.439453px'
+                }}
+              >
                 What's your budget?
               </label>
-              <div className="grid grid-cols-3 gap-4">
-              {["Free", "Under ₹1000", "Splurge"].map((option) => (
+              <div className="grid grid-cols-2 gap-3">
+                {["Free", "Under ₹1000", "Splurge"].map((option) => (
                   <button
                     key={option}
                     onClick={() => setAnswers({ ...answers, budget: option })}
-                    className={`p-5 rounded-xl border-2 transition-all text-base ${
+                    className={`p-4 border-2 transition-all ${
                       answers.budget === option
-                        ? "border-rose-500 bg-rose-50 text-rose-900"
-                        : "border-gray-200 hover:border-rose-300 text-gray-700"
+                        ? "bg-rose-50"
+                        : "bg-white hover:bg-rose-25"
                     }`}
+                    style={{
+                      borderColor: answers.budget === option ? '#EA3263' : '#FFCCD3',
+                      borderRadius: '14px',
+                      fontFamily: 'var(--font-roboto-mono)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: '#C70036',
+                      letterSpacing: '-0.150391px'
+                    }}
                   >
                     {option}
                   </button>
@@ -231,20 +302,36 @@ export default function IdeaPage() {
             </div>
 
             {/* Question 4 */}
-            <div className="space-y-3">
-              <label className="block text-lg font-medium text-rose-900">
+            <div className="space-y-4">
+              <label
+                className="block text-lg font-bold"
+                style={{
+                  fontFamily: 'var(--font-roboto-mono)',
+                  color: '#8B0836',
+                  letterSpacing: '-0.439453px'
+                }}
+              >
                 What vibe are you going for?
               </label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 {["Romantic", "Playful", "Thoughtful", "Relaxed"].map((option) => (
                   <button
                     key={option}
                     onClick={() => setAnswers({ ...answers, vibe: option })}
-                    className={`p-5 rounded-xl border-2 transition-all text-base ${
+                    className={`p-4 border-2 transition-all ${
                       answers.vibe === option
-                        ? "border-rose-500 bg-rose-50 text-rose-900"
-                        : "border-gray-200 hover:border-rose-300 text-gray-700"
+                        ? "bg-rose-50"
+                        : "bg-white hover:bg-rose-25"
                     }`}
+                    style={{
+                      borderColor: answers.vibe === option ? '#EA3263' : '#FFCCD3',
+                      borderRadius: '14px',
+                      fontFamily: 'var(--font-roboto-mono)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: '#C70036',
+                      letterSpacing: '-0.150391px'
+                    }}
                   >
                     {option}
                   </button>
@@ -256,11 +343,18 @@ export default function IdeaPage() {
             <button
               onClick={generateIdea}
               disabled={!isComplete}
-              className={`w-full py-4 rounded-full font-medium transition-all ${
-                isComplete
-                  ? "bg-rose-500 hover:bg-rose-600 text-white"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
+              className="w-full transition-all"
+              style={{
+                padding: '17px 0',
+                borderRadius: '9999px',
+                backgroundColor: isComplete ? '#EA3263' : '#E5E7EB',
+                fontFamily: 'var(--font-inter)',
+                fontSize: '18px',
+                fontWeight: 600,
+                color: isComplete ? '#FFFFFF' : '#99A1AF',
+                letterSpacing: '-0.439453px',
+                cursor: isComplete ? 'pointer' : 'not-allowed'
+              }}
             >
               {isComplete ? "Show me an idea ✨" : "Answer all questions first"}
             </button>
@@ -270,49 +364,87 @@ export default function IdeaPage() {
 
       {/* Modal */}
       {showModal && (
-        <div 
-        className="fixed inset-0 flex items-center justify-center p-6 z-50"
-        style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+        <div
+          className="fixed inset-0 flex items-center justify-center p-6 z-50"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
           onClick={() => setShowModal(false)}
         >
-          <div 
-            className="bg-white rounded-3xl p-8 max-w-lg w-full space-y-6 relative animate-in fade-in zoom-in duration-300"
+          <div
+            className="relative animate-in fade-in zoom-in duration-300"
+            style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '24px',
+              padding: '48px 40px',
+              maxWidth: '560px',
+              width: '100%',
+              boxShadow: '0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+              className="absolute top-4 right-4 hover:opacity-70 transition-opacity"
+              style={{
+                fontSize: '28px',
+                color: '#8B0836',
+                fontWeight: 300
+              }}
             >
               ×
             </button>
 
             {/* Heart icon or emoji */}
-            <div className="text-center text-5xl">💝</div>
+            <div className="text-center text-6xl mb-6">💝</div>
 
-            <h2 className="text-2xl font-serif text-rose-900 text-center">
+            <h2
+              className="text-center mb-6"
+              style={{
+                fontFamily: 'var(--font-satisfy)',
+                fontSize: '32px',
+                color: '#EA3263',
+                letterSpacing: '0.3516px'
+              }}
+            >
               Your Valentine's idea
             </h2>
 
-            <p className="text-lg text-gray-700 leading-relaxed text-center">
+            <p
+              className="text-center mb-8 leading-relaxed"
+              style={{
+                fontFamily: 'var(--font-roboto-mono)',
+                fontSize: '16px',
+                color: '#8B0836',
+                letterSpacing: '-0.4395px'
+              }}
+            >
               {idea}
             </p>
 
             <Link
-  href={`/letter?recipient=${
-    answers.who === "Myself" 
-      ? "myself" 
-      : answers.who === "Long distance" 
-      ? "long_distance" 
-      : answers.who === "Best friend"
-      ? "best_friend"
-      : "romantic_partner"
-  }`}
-  className="w-full py-4 rounded-full bg-rose-500 hover:bg-rose-600 text-white text-center transition-colors block"
->
-  {answers.who === "Myself" ? "Write a letter to yourself →" : "Write a letter to them →"}
-</Link>
-            
+              href={`/letter?recipient=${
+                answers.who === "Myself"
+                  ? "myself"
+                  : answers.who === "Long distance"
+                  ? "long_distance"
+                  : answers.who === "Best friend"
+                  ? "best_friend"
+                  : "romantic_partner"
+              }`}
+              className="block text-center transition-opacity hover:opacity-90"
+              style={{
+                padding: '17px 0',
+                borderRadius: '9999px',
+                backgroundColor: '#EA3263',
+                fontFamily: 'var(--font-inter)',
+                fontSize: '18px',
+                fontWeight: 600,
+                color: '#FFFFFF',
+                letterSpacing: '-0.439453px'
+              }}
+            >
+              {answers.who === "Myself" ? "Write a letter to yourself →" : "Write a letter to them →"}
+            </Link>
           </div>
         </div>
       )}
