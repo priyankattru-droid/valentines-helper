@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Satisfy, Dancing_Script, Source_Serif_4, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,8 +55,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${satisfy.variable} ${dancingScript.variable} ${sourceSerif.variable} ${inter.variable} antialiased`}>
-  {children}
-</body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
